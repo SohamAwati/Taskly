@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page With Light/Dark Mode</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <main>
+        <div class="big-wrapper light">
+            <img src="shape.png" alt="" class="shape" />
+
+            <header>
+                <div class="container">
+                    <div class="logo">
+                        <img src="logo.png" alt="Logo" />
+                        <h3>Taskly</h3>
+                    </div>
+
+                    <div class="links">
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About </a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="login.html" class="btn">Sign up</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="overlay"></div>
+
+                    <div class="hamburger-menu">
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="showcase-area">
+                <div class="container">
+                    <div class="left">
+                        <div class="big-title">
+                            <h1>Smarter Tasking,</h1>
+                            <h1>Starts Here.</h1>
+                        </div>
+                        <p class="text">
+                            AI-powered productivity with chat, reminders, and your schedule in sync.
+                        </p>
+                        <div class="cta">
+                            <a href="login.html" class="btn">Get started</a>
+                        </div>
+                    </div>
+
+                    <div class="right">
+                        <img src="image1.png" alt="Person Image" class="person" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-area">
+                <div class="container">
+                    <button class="toggle-btn">
+                        <i class="far fa-moon"></i>
+                        <i class="far fa-sun"></i>
+                    </button>
+
+                    <!--About Section-->
+                    <section id="about" class="text1" data-aos="fade-up">
+                        <div class="container">
+                            <h2>About Taskly</h2>
+                            <p>
+                                Taskly is your ultimate all-in-one productivity workspace — built to simplify task management and
+                                supercharge your focus. With Taskly, you can create and organize tasks effortlessly, collaborate through
+                                real-time chat, and stay on top of your schedule using built-in reminders and calendar tools.
+                            </p>
+                            <p>
+                                Designed for students, professionals, and teams alike, Taskly adapts to your workflow. Whether you're
+                                tracking deadlines, brainstorming ideas, or juggling multiple projects, our smart dashboard, sleek
+                                interface, and integrated AI assistant help you get more done — in less time.
+                            </p>
+                            <p>
+                                Experience powerful features like Dark Mode, Smart Notifications, Real-Time Collaboration, AI Chatbot,
+                                Weather & Clock Widgets, and much more — all in one unified, user-friendly dashboard.
+                            </p>
+                        </div>
+                    </section>
+
+                    
+                    <!-- Contact Section -->
+                    <section id="contact" class="big-title">
+                        <div class="container">
+                            <h2>Contact Us</h2>
+                            <p>Have questions or feedback? We'd love to hear from you!</p>
+                        <form id="contactForm">
+                            <input type="text" id="name" placeholder="Your Name" required>
+                            <input type="email" id="email" placeholder="Your Email" required>
+                            <textarea id="message" placeholder="Your Message" required></textarea>
+                            <button type="submit">Send Message</button>
+                        </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script type="module">
+    // Firebase v9+ Modular SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCra70gSmgHSkp0bRJ97xdGfnJ3a-0DFTk",
+        authDomain: "contact-a9fd0.firebaseapp.com",
+        projectId: "contact-a9fd0",
+        storageBucket: "contact-a9fd0.appspot.com",
+        messagingSenderId: "496058572209",
+        appId: "1:496058572209:web:2931a5f76a9b61fa47f190",
+        measurementId: "G-MLPLFEGBM1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Form submit logic
+    const form = document.getElementById("contactForm");
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+        try {
+            await addDoc(collection(db, "feedback"), {
+                name,
+                email,
+                message,
+                timestamp: serverTimestamp()
+            });
+            alert("✅ Feedback submitted!");
+            form.reset();
+        } catch (err) {
+            console.error("Error adding document: ", err);
+            alert("❌ Submission failed!");
+        }
+    });
+</script>
+
+
+    <!-- JavaScript Files -->
+
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <script src="script.js"></script> 
+    
+</body>
+
+</html>
