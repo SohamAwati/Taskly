@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Dashboard</title>
+    <link rel="stylesheet" href="todo.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+            <ul>
+                <li class="sidebar-item active" onclick="setActive(this)"><i class="fas fa-calendar-day"></i> <span class="sidebar-text">Today</span></li>
+                <hr>
+                <li class="sidebar-item" id="inbox-btn" onclick="setActive(this)"><i class="fas fa-inbox"></i> <span class="sidebar-text" class="notification-dot" id="inbox-notification">Inbox</span></li>
+                <hr>
+                <li class="sidebar-item" onclick="toggleCalendar()">
+                <i class="fas fa-calendar"></i>
+                <span class="sidebar-text">Calendar</span>
+                </li>
+                <hr>
+            </ul>
+            <div class="weather-card" id="weather-card">
+            <div id="weather-widget" class="weather-box">
+                <input type="text" id="city-search" placeholder="Enter city name">
+                <button id = "search-button" onclick="fetchWeatherByCity()">Search</button>
+            
+                <p id="weather-location">Fetching weather...</p>
+                <img id="weather-icon" src="" alt="Weather Icon">
+                <p id="weather-temp"></p>
+                <p id="weather-condition"></p>
+            </div>
+            </div>
+            <div id="dashboard-content">
+                <!-- Default To-Do List content will load here -->
+            </div>
+
+            <div class="bottom-area">
+                <div class="container">
+                    <button class="toggle-btn" id="darkModeToggle">
+                     <i class="far fa-moon"></i>
+                     <i class="far fa-sun"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Overlay (for dim effect when sidebar opens) -->
+<div id="overlay"></div>
+  
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <h1>To-Do List</h1>
+                <button class="settings-btn" id="settings-btn" onclick="toggleSettingsPanel()">⚙️</button>
+            </header>
+            
+            <div id="settings-panel" class="settings-panel hidden">
+                <h3>🎨 Theme & Customization</h3>
+            
+                <!-- Theme Selection -->
+                <label for="theme-selector">🌈 Select Theme:</label>
+                <select id="theme-selector" onchange="changeTheme(this.value)">
+                    <option value="default">Default</option>
+                    <option value="dark">Dark</option>
+                    <option value="pastel">Pastel</option>
+                    <option value="custom">Custom</option>
+                </select>
+                
+                <!-- Custom Color Picker -->
+                <input type="color" id="custom-theme-color" class="hidden" onchange="applyCustomTheme(this.value)" />
+                
+                <!-- Font Selection -->
+                <label for="font-selector">🔤 Select Font:</label>
+                <select id="font-selector" onchange="changeFont(this.value)">
+                    <option value="Arial">Arial</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Comic Sans MS">Comic Sans</option>
+                    <option value="Roboto">Roboto</option>
+                </select>
+                
+                <!-- Font Size -->
+                <label for="font-size">🔠 Font Size:</label>
+                <input type="range" id="font-size" min="12" max="24" value="16" oninput="changeFontSize(this.value)">
+                <span id="font-size-value">16px</span>
+                
+                <!-- UI Mode -->
+                <label for="ui-mode">🌓 UI Mode:</label>
+                <select id="ui-mode" onchange="switchUITheme(this.value)">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="auto">Auto</option>
+                </select>
+                
+                <!-- Save Button -->
+                <button id="save-settings">💾 Save</button>
+            </div>
+            <!--Between sidebar and task container-->
+            <div class="task-sections">
+            <div class="task-preview-area" id="task-preview-area">
+                <h2>📋 Task Preview</h2></div>
+             
+                <div class="tasks-column">
+            <div class="task-container">
+                <class="task-header">
+                    <h2>📌 Tasks</h2>
+                    <div class="input-wrapper">
+                        <input type="text" id="task-input" placeholder="Add a task..." onkeypress="handleTaskInput(event)">
+                        <button class="add-task-btn" id="addTaskBtn"  onclick="addTask()">+</button>
+                        <ul id="task_list" class="draggable-list"></ul>
+                    </div>
+                </div>            
+            
+            <!-- Clock -->
+            <div id="clock-container">
+                <iframe src="https://timebyte.netlify.app/" id="clock-frame"></iframe>
+            </div>
+            </div>
+            </div>
+
+            <!-- AI Chatbot Container -->
+            <div id="chatbot-container">
+                <iframe id="chatbot-frame" src="https://sohamaichatbot.netlify.app/"></iframe>
+            </div>
+            <button id="chatbot-toggle">💬</button>
+            </div>
+            <!-- Calendar Panel -->
+            <div id="calendar-container">
+                <iframe id="calendar-frame" src="https://synccal.netlify.app/" frameborder="0"></iframe>
+            </div>
+    </div>
+    <script src="todo.js"></script>
+<script type="module" src="app.js"></script>    
+</body>
+</html>
